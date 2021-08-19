@@ -1,0 +1,78 @@
+server:
+  port: 8065
+
+spring:
+  application:
+    name: "api-gateway"
+  profiles:
+    active: "dev"
+  cloud:
+    gateway:
+      routes:
+        - id: 'user-command-service'
+          uri: lb://user-command-service
+          predicates:
+              - Path=/user-command-service/**
+          filters:
+            - RewritePath=/user-command-service/(?<path>.*), /$\{path}
+        - id: 'user-query-service'
+          uri: lb://user-query-service
+          predicates:
+            - Path=/user-query-service/**
+          filters:
+            - RewritePath=/user-query-service/(?<path>.*), /$\{path}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+    registry-fetch-interval-seconds: 10
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.*: INFO
+
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    enabled-by-default: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      environment: ${spring.profiles}
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
+        step: 1m
+        pushgateway:
+          base-url: localhost:9091
+          enabled: true
+          job: ${spring.application.name}
+          push-rate: 20m
+          shutdown-operation: push
+
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"

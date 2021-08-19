@@ -1,0 +1,61 @@
+server:
+  port: 8761
+
+
+spring:
+  application:
+    name: discovery-service
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: INFO
+    org.springframework.*: INFO
+
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    enabled-by-default: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      environment: ${spring.profiles}
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
+        step: 1m
+        pushgateway:
+          base-url: localhost:9091
+          enabled: true
+          job: ${spring.application.name}
+          push-rate: 20m
+          shutdown-operation: push
+
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"

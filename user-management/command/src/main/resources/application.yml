@@ -1,0 +1,45 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: "user-command-service"
+  profiles:
+    active: "dev"
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: user
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+    registry-fetch-interval-seconds: 10
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"
