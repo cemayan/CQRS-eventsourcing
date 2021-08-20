@@ -29,6 +29,12 @@ management:
         include: '*'
 
 
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: cqrsSigningKey
+
 ---
 
 spring:

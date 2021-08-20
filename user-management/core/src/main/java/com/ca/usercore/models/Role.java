@@ -3,7 +3,7 @@ package com.ca.usercore.models;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role  implements GrantedAuthority {
-    READ_PRIVILIGE, WRITE_PRIVILIGE;
+    READ_PRIVILEGE, WRITE_PRIVILEGE;
 
     @Override
     public String getAuthority() {
