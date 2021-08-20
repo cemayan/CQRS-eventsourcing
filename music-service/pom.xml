@@ -7,12 +7,12 @@
         <groupId>com.ca</groupId>
         <version>1.0</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
+
 
     <packaging>pom</packaging>
 
-    <artifactId>user-management</artifactId>
+    <artifactId>music-service</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -20,6 +20,13 @@
         <spring.cloud-version>2020.0.3</spring.cloud-version>
         <micrometer.version>1.7.3</micrometer.version>
     </properties>
+
+    <modules>
+        <module>music-cmd-api</module>
+        <module>music-query-api</module>
+        <module>music-core</module>
+    </modules>
+
 
     <dependencies>
         <dependency>
@@ -104,13 +111,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <modules>
-        <module>user-query-api</module>
-        <module>user-cmd-api</module>
-        <module>user-core</module>
-        <module>oauth2-server</module>
-    </modules>
 
 
 </project>

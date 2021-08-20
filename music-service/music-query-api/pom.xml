@@ -2,39 +2,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-
     <parent>
         <groupId>com.ca</groupId>
-        <artifactId>user-management</artifactId>
+        <artifactId>music-service</artifactId>
         <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>oauth2-server</artifactId>
-    <version>1.0</version>
-    <name>oauth2-server</name>
-    <description>oauth2-server</description>
 
+    <artifactId>music-query-api</artifactId>
+    <version>1.0</version>
+    <name>music-cmd-api</name>
+    <description>music-query</description>
 
     <properties>
         <java.version>11</java.version>
-        <spring.cloud-version>2020.0.3</spring.cloud-version>
-        <micrometer.version>1.7.3</micrometer.version>
     </properties>
 
-
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
         <dependency>
@@ -43,20 +46,20 @@
         </dependency>
 
         <dependency>
-            <groupId>com.ca</groupId>
-            <artifactId>user-core</artifactId>
-            <version>1.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-spring-boot-starter</artifactId>
+            <version>4.5.3</version>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.ca</groupId>
+            <artifactId>music-core</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

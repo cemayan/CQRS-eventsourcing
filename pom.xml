@@ -28,6 +28,7 @@
         <module>discovery-service</module>
         <module>user-management</module>
         <module>api-gateway</module>
+        <module>music-service</module>
     </modules>
 
     <build>

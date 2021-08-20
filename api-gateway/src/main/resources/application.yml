@@ -21,6 +21,18 @@ spring:
             - Path=/user-query-service/**
           filters:
             - RewritePath=/user-query-service/(?<path>.*), /$\{path}
+        - id: 'music-command-service'
+          uri: lb://music-command-service
+          predicates:
+            - Path=/music-command-service/**
+          filters:
+            - RewritePath=/music-command-service/(?<path>.*), /$\{path}
+        - id: 'user-query-service'
+          uri: lb://music-query-service
+          predicates:
+            - Path=/music-query-service/**
+          filters:
+            - RewritePath=/music-query-service/(?<path>.*), /$\{path}
 
 eureka:
   client:
