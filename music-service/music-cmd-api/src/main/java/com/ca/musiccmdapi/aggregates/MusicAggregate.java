@@ -1,7 +1,10 @@
 package com.ca.musiccmdapi.aggregates;
 
 import com.ca.musiccmdapi.commands.RegisterSongCommand;
+import com.ca.musiccmdapi.mapper.MusicCommandMapper;
+import com.ca.musiccore.dto.SongDTO;
 import com.ca.musiccore.events.SongRegisteredEvent;
+import com.ca.musiccore.mapper.SongMapper;
 import com.ca.musiccore.models.Song;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
@@ -16,19 +19,15 @@ public class MusicAggregate {
 
     @AggregateIdentifier
     private String id;
-    private Song song;
+    private SongDTO song;
 
     @CommandHandler
     public  MusicAggregate(RegisterSongCommand  command) {
 
+        SongRegisteredEvent songRegisteredEvent =
+                MusicCommandMapper.INSTANCE.registerSongCommandToSongRegisteredEvent(command);
 
-        SongRegisteredEvent song = SongRegisteredEvent.builder()
-                .song(command.getSong())
-                .id(command.getId())
-                .build();
-
-        AggregateLifecycle.apply(song);
-
+        AggregateLifecycle.apply(songRegisteredEvent);
     }
 
     @EventSourcingHandler

@@ -1,25 +1,30 @@
 package com.ca.musiccore.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 
-import java.util.List;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Table("albums")
 public class Album {
 
-
+    @Id
     private String id;
-
     private String name;
-//
-//    @OneToMany
-//    private List<Song> songs;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

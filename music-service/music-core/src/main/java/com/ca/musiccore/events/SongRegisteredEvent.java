@@ -1,18 +1,13 @@
 package com.ca.musiccore.events;
 
 
-import com.ca.musiccore.models.Song;
-import lombok.Builder;
-import lombok.Data;
+import com.ca.musiccore.dto.SongDTO;
 
 
-
-@Data
-@Builder
 public class SongRegisteredEvent {
 
     private String id;
-    private Song song;
+    private SongDTO song;
 
     public String getId() {
         return id;
@@ -22,11 +17,11 @@ public class SongRegisteredEvent {
         this.id = id;
     }
 
-    public Song getSong() {
+    public SongDTO getSong() {
         return song;
     }
 
-    public void setSong(Song song) {
+    public void setSong(SongDTO song) {
         this.song = song;
     }
 }
