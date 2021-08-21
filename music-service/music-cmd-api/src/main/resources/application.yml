@@ -10,7 +10,11 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: user
+      database: music
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
 
 
 eureka:

@@ -10,7 +10,26 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: user
+      database: music
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/music
+#    username: root
+#    password: password
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
+  flyway:
+    url: jdbc:mysql://localhost:3306/music
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+    baseline-on-migrate: true
+
 
 eureka:
   client:
