@@ -1,50 +1,22 @@
-package com.ca.musiccore.models;
-
+package com.ca.musiccore.dto;
 
 import com.ca.musiccore.enumaration.Genre;
+import com.ca.musiccore.models.Artist;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.annotation.Version;
-import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.ZonedDateTime;
 
+public class AlbumDTO {
 
-@Table("albums")
-public class Album implements Persistable {
-
-    @Id
     private String id;
-
     private String name;
+
     private String recordLabel;
     private Integer year;
-    private ZonedDateTime releaseDate;
 
+    private ZonedDateTime releaseDate;
     private Genre genre;
 
-    @Transient
-    private boolean newAlbum;
-
-    @Version
-    private Long version = 0L;
-
-    @Transient
-    public boolean isNew() {
-        return this.newAlbum || id == null;
-    }
-
-    public Album setAsNew() {
-        this.newAlbum = true;
-        return this;
-    }
-
-    @Column("artist_id")
-    @JsonProperty("artistId")
     private String artistId;
 
     public String getId() {
@@ -86,22 +58,6 @@ public class Album implements Persistable {
 
     public void setReleaseDate(ZonedDateTime releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public boolean isNewAlbum() {
-        return newAlbum;
-    }
-
-    public void setNewAlbum(boolean newAlbum) {
-        this.newAlbum = newAlbum;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
     }
 
     public Genre getGenre() {

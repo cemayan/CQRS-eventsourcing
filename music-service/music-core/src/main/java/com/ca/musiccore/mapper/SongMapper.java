@@ -1,6 +1,6 @@
 package com.ca.musiccore.mapper;
 
-import com.ca.musiccore.events.SongRegisteredEvent;
+import com.ca.musiccore.events.song.SongRegisteredEvent;
 import com.ca.musiccore.models.Song;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,9 +1,10 @@
-package com.ca.userqueryapi.controllers;
+package com.ca.musicqueryapi.controllers;
 
 
-import com.ca.userqueryapi.dto.UserLookupResponse;
-import com.ca.userqueryapi.queries.FindAllUsersQuery;
-import com.ca.userqueryapi.queries.FindUserByIdQuery;
+
+import com.ca.musicqueryapi.dto.SongLookupResponse;
+import com.ca.musicqueryapi.queries.FindAllSongsQuery;
+import com.ca.musicqueryapi.queries.FindSongByIdQuery;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,52 +17,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/userLookup")
-public class UserLookupController {
+@RequestMapping(path = "/api/v1/songLookup")
+public class SongLookupController {
     private final QueryGateway queryGateway;
 
     @Autowired
-    public UserLookupController(QueryGateway queryGateway) {
+    public SongLookupController(QueryGateway queryGateway) {
         this.queryGateway = queryGateway;
     }
 
     @GetMapping(path = "/")
     @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
-    public ResponseEntity<UserLookupResponse> getAllUsers() {
+    public ResponseEntity<SongLookupResponse> getAllUsers() {
         try {
-            var query = new FindAllUsersQuery();
-            var response = queryGateway.query(query, ResponseTypes.instanceOf(UserLookupResponse.class)).join();
+            var query = new FindAllSongsQuery();
+            var response = queryGateway.query(query, ResponseTypes.instanceOf(SongLookupResponse.class)).join();
 
-            if (response == null || response.getUsers() == null) {
+            if (response == null || response.getSongs() == null) {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            var safeErrorMessage = "Failed to complete get all users request";
+            var safeErrorMessage = "Failed to complete get all songs request";
             System.out.println(e.toString());
 
-            return new ResponseEntity<>(new UserLookupResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new SongLookupResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping(path = "/{id}")
     @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
-    public ResponseEntity<UserLookupResponse> getUserById(@PathVariable(value = "id") String id) {
+    public ResponseEntity<SongLookupResponse> getUserById(@PathVariable(value = "id") String id) {
         try {
-            var query = new FindUserByIdQuery(id);
-            var response = queryGateway.query(query, ResponseTypes.instanceOf(UserLookupResponse.class)).join();
+            var query = new FindSongByIdQuery(id);
+            var response = queryGateway.query(query, ResponseTypes.instanceOf(SongLookupResponse.class)).join();
 
-            if (response == null || response.getUsers() == null) {
+            if (response == null || response.getSongs() == null) {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            var safeErrorMessage = "Failed to complete get user by ID request";
+            var safeErrorMessage = "Failed to complete get song by ID request";
             System.out.println(e.toString());
 
-            return new ResponseEntity<>(new UserLookupResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new SongLookupResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

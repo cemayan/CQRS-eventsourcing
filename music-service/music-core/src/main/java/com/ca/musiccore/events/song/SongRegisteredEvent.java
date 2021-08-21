@@ -1,4 +1,4 @@
-package com.ca.musiccore.events;
+package com.ca.musiccore.events.song;
 
 
 import com.ca.musiccore.dto.SongDTO;

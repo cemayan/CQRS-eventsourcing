@@ -1,13 +1,9 @@
 package com.ca.musiccmdapi.mapper;
 
 import com.ca.musiccmdapi.commands.RegisterSongCommand;
-import com.ca.musiccore.dto.SongDTO;
-import com.ca.musiccore.events.SongRegisteredEvent;
-import com.ca.musiccore.mapper.SongMapper;
-import com.ca.musiccore.models.Song;
+import com.ca.musiccore.events.song.SongRegisteredEvent;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
