@@ -1,14 +1,16 @@
-package com.ca.musicqueryapi.handlers.album;
+package com.ca.musicqueryapi.handlers.song;
 
 
 
-import com.ca.musicqueryapi.dto.SongLookupResponse;
+import com.ca.musicqueryapi.dto.SongLookupFluxResponse;
+import com.ca.musicqueryapi.dto.SongLookupMonoResponse;
 import com.ca.musicqueryapi.queries.FindAllSongsQuery;
 import com.ca.musicqueryapi.queries.FindSongByIdQuery;
 import com.ca.musicqueryapi.repositories.SongRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 public class SongQueryHandlerImpl implements SongQueryHandler {
@@ -21,17 +23,23 @@ public class SongQueryHandlerImpl implements SongQueryHandler {
         this.songRepository = songRepository;
     }
 
-    @QueryHandler
-    @Override
-    public SongLookupResponse getSongById(FindSongByIdQuery query) {
-        var song = songRepository.findById(query.getId());
-        return new SongLookupResponse(song);
+    public void aa() {
+
     }
 
     @QueryHandler
     @Override
-    public SongLookupResponse getAllSongs(FindAllSongsQuery query) {
+    public Mono getSongById(FindSongByIdQuery query) {
+        var song = songRepository.findById(query.getId());
+        return song;
+    }
+
+
+
+    @QueryHandler
+    @Override
+    public SongLookupFluxResponse getAllSongs(FindAllSongsQuery query) {
         var songs = songRepository.findAll();
-        return new SongLookupResponse(songs);
+        return new SongLookupFluxResponse(songs);
     }
 }

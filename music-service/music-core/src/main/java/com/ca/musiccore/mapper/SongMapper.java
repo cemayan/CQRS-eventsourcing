@@ -1,5 +1,6 @@
 package com.ca.musiccore.mapper;
 
+import com.ca.musiccore.dto.SongDTO;
 import com.ca.musiccore.events.song.SongRegisteredEvent;
 import com.ca.musiccore.models.Song;
 import org.mapstruct.Mapper;
@@ -20,6 +21,18 @@ public interface SongMapper {
     @Mapping(source = "song.youtubeLink", target = "youtubeLink")
     @Mapping(source = "song.albumId", target = "albumId")
     Song songEventToSong(SongRegisteredEvent songRegisteredEvent);
+
+
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "duration", target = "duration")
+    @Mapping(source = "image", target = "image")
+    @Mapping(source = "lyrics", target = "lyrics")
+    @Mapping(source = "spotifyLink", target = "spotifyLink")
+    @Mapping(source = "youtubeLink", target = "youtubeLink")
+    @Mapping(source = "albumId", target = "albumId")
+    SongDTO songToSongDTO(Song song);
 
 
 }

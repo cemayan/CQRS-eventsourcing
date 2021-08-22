@@ -12,7 +12,7 @@
 
     <artifactId>music-query-api</artifactId>
     <version>1.0</version>
-    <name>music-cmd-api</name>
+    <name>music-query-api</name>
     <description>music-query</description>
 
     <properties>
@@ -83,6 +83,14 @@
             <version>4.5.3</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.axonframework.extensions.reactor</groupId>
+            <artifactId>axon-reactor-spring-boot-starter</artifactId>
+            <version>4.5</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.ca</groupId>
             <artifactId>music-core</artifactId>
@@ -98,7 +106,7 @@
             </snapshots>
             <id>central</id>
             <name>Maven Repository Switchboard</name>
-            <url>http://repo1.maven.org/maven2</url>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
     </repositories>
 
