@@ -18,7 +18,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 @NoArgsConstructor
-public class MusicAggregate {
+public class MusicAggregate2 {
 
     @AggregateIdentifier
     private String id;
@@ -28,22 +28,23 @@ public class MusicAggregate {
     private GenreDTO genre;
 
     @CommandHandler
-    public  MusicAggregate(RegisterSongCommand  command) {
+    public MusicAggregate2(RegisterAllSongCommand  command) {
 
-        SongRegisteredEvent songRegisteredEvent =
-                MusicCommandMapper.INSTANCE.registerSongCommandToSongRegisteredEvent(command);
+        AllSongRegisteredEvent songRegisteredEvent =
+                MusicCommandMapper.INSTANCE.registerSongCommandToAllSongRegisteredEvent(command);
         AggregateLifecycle.apply(songRegisteredEvent);
     }
 
 
 
     @EventSourcingHandler
-    public void on(SongRegisteredEvent event) {
+    public void on(AllSongRegisteredEvent event) {
         this.id = event.getId();
         this.song = event.getSong();
+        this.genre = event.getGenre();
+        this.artist = event.getArtist();
+        this.album = event.getAlbum();
     }
-
-
 
 
 

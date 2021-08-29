@@ -53,12 +53,12 @@ public class Artist implements Persistable {
         this.name = name;
     }
 
-    public boolean isNewSong() {
+    public boolean isNewArtist() {
         return newArtist;
     }
 
-    public void setNewSong(boolean newSong) {
-        this.newArtist = newSong;
+    public void setNewArtist(boolean newArtist) {
+        this.newArtist = newArtist;
     }
 
     public Long getVersion() {

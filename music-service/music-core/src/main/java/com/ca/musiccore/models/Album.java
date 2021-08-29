@@ -1,9 +1,7 @@
 package com.ca.musiccore.models;
 
 
-import com.ca.musiccore.enumaration.Genre;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.annotation.Version;

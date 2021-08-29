@@ -22,6 +22,13 @@ public class SongDTO {
     private String spotifyLink;
     private String youtubeLink;
 
+    @JsonProperty("genreId")
+    private String genreId;
+
+    @JsonProperty("artistId")
+    private String artistId;
+
+
     public String getId() {
         return id;
     }
@@ -84,5 +91,21 @@ public class SongDTO {
 
     public void setYoutubeLink(String youtubeLink) {
         this.youtubeLink = youtubeLink;
+    }
+
+    public String getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(String genreId) {
+        this.genreId = genreId;
+    }
+
+    public String getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
     }
 }

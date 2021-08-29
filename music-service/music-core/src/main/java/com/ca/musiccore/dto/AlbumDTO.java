@@ -1,8 +1,6 @@
 package com.ca.musiccore.dto;
 
-import com.ca.musiccore.enumaration.Genre;
-import com.ca.musiccore.models.Artist;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import java.time.ZonedDateTime;
 

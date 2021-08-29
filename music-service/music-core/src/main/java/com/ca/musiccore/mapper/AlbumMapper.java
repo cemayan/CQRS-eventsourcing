@@ -1,8 +1,11 @@
 package com.ca.musiccore.mapper;
 
+import com.ca.musiccore.dto.AlbumDTO;
+import com.ca.musiccore.dto.GenreDTO;
 import com.ca.musiccore.events.album.AlbumRegisteredEvent;
 import com.ca.musiccore.events.song.SongRegisteredEvent;
 import com.ca.musiccore.models.Album;
+import com.ca.musiccore.models.Genre;
 import com.ca.musiccore.models.Song;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,4 +25,11 @@ public interface AlbumMapper {
     Album albumEventToAlbum(AlbumRegisteredEvent albumRegisteredEvent);
 
 
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "recordLabel", target = "recordLabel")
+    @Mapping(source = "year", target = "year")
+    @Mapping(source = "releaseDate", target = "releaseDate")
+    @Mapping(source = "artistId", target = "artistId")
+    Album albumDTOToAlbum(AlbumDTO albumDTO);
 }

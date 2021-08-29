@@ -1,6 +1,5 @@
 package com.ca.musiccore.models;
 
-import com.ca.musiccore.enumaration.Genre;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +45,12 @@ public class Song  implements Persistable {
     @Column("genre_id")
     @JsonProperty("genreId")
     private String genreId;
+
+    @Column("artist_id")
+    @JsonProperty("artistId")
+    private String artistId;
+
+
 
     @Transient
     public boolean isNew() {
@@ -146,5 +151,13 @@ public class Song  implements Persistable {
 
     public void setGenreId(String genreId) {
         this.genreId = genreId;
+    }
+
+    public String getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
     }
 }

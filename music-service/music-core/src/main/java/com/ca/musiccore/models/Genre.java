@@ -16,7 +16,8 @@ import java.time.ZonedDateTime;
 public class Genre implements Persistable {
 
     @Id
-    private Long id;
+    private String id;
+
     private String name;
 
     @Transient
@@ -25,23 +26,24 @@ public class Genre implements Persistable {
     @Version
     private Long version = 0L;
 
-    @Override
-    public Object getId() {
-        return null;
-    }
 
-    @Override
+
+    @Transient
     public boolean isNew() {
-        return false;
+        return this.newGenre || id == null;
     }
-
 
     public Genre setAsNew() {
         this.newGenre = true;
         return this;
     }
 
-    public void setId(Long id) {
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
