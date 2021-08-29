@@ -2,6 +2,7 @@ package com.ca.usercore.configuration;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
+import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
@@ -12,6 +13,7 @@ import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventSto
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoFactory;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoSettingsFactory;
 import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
+import org.axonframework.queryhandling.*;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,6 +64,19 @@ public class AxonConfig {
                 .mongoTemplate(DefaultMongoTemplate.builder()
                         .mongoDatabase(client)
                         .build())
+                .build();
+    }
+
+    @Bean
+    public SimpleQueryBus queryBus(AxonConfiguration axonConfiguration, TransactionManager transactionManager) {
+        return SimpleQueryBus.builder()
+                .messageMonitor(axonConfiguration.messageMonitor(QueryBus.class, "queryBus"))
+                .transactionManager(transactionManager)
+                .errorHandler(axonConfiguration.getComponent(
+                        QueryInvocationErrorHandler.class,
+                        () -> LoggingQueryInvocationErrorHandler.builder().build()
+                ))
+                .queryUpdateEmitter(axonConfiguration.getComponent(QueryUpdateEmitter.class))
                 .build();
     }
 

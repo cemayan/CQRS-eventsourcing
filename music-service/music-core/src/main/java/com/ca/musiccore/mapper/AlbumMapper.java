@@ -18,7 +18,6 @@ public interface AlbumMapper {
     @Mapping(source = "album.recordLabel", target = "recordLabel")
     @Mapping(source = "album.year", target = "year")
     @Mapping(source = "album.releaseDate", target = "releaseDate")
-    @Mapping(source = "album.genre", target = "genre")
     @Mapping(source = "album.artistId", target = "artistId")
     Album albumEventToAlbum(AlbumRegisteredEvent albumRegisteredEvent);
 

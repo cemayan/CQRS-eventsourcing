@@ -13,10 +13,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Import({AxonConfig.class})
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class CommandApplication {
+public class UserCommandApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CommandApplication.class, args);
+        SpringApplication.run(UserCommandApplication.class, args);
     }
 
 }

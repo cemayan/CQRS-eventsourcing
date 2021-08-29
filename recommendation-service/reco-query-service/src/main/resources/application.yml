@@ -1,0 +1,71 @@
+server:
+  port: 8051
+  error:
+    include-message: always
+    include-binding-errors: always
+
+
+spring:
+  application:
+    name: "reco-query-service"
+  profiles:
+    active: "dev"
+  cloud:
+    stream:
+      bindings:
+        userProducer-out-0:
+          destination: users
+          group: userGroup
+      rabbit:
+        bindings:
+          consumer:
+            userOperationInputChannel:
+              autoBindDlq: true
+              republishToDlq: true
+      default-binder: rabbit
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: password
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+    registry-fetch-interval-seconds: 10
+
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: cqrsSigningKey
+
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"

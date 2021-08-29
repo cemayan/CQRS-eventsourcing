@@ -25,7 +25,7 @@ public class Album implements Persistable {
     private Integer year;
     private ZonedDateTime releaseDate;
 
-    private Genre genre;
+
 
     @Transient
     private boolean newAlbum;
@@ -47,6 +47,8 @@ public class Album implements Persistable {
     @JsonProperty("artistId")
     private String artistId;
 
+
+    @Override
     public String getId() {
         return id;
     }
@@ -102,14 +104,6 @@ public class Album implements Persistable {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
     }
 
     public String getArtistId() {

@@ -1,6 +1,7 @@
 package com.ca.userqueryapi.handlers;
 
 
+import com.ca.usercore.mapper.UserMapper;
 import com.ca.userqueryapi.dto.UserLookupResponse;
 import com.ca.userqueryapi.queries.FindAllUsersQuery;
 import com.ca.userqueryapi.queries.FindUserByIdQuery;
@@ -9,6 +10,8 @@ import com.ca.userqueryapi.repositories.UserRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -24,15 +27,15 @@ public class UserQueryHandlerImpl implements UserQueryHandler {
 
     @QueryHandler
     @Override
-    public UserLookupResponse getUserById(FindUserByIdQuery query) {
+    public Mono getUserById(FindUserByIdQuery query) {
         var user = userRepository.findById(query.getId());
-        return new UserLookupResponse(user);
+        return  user.map(x-> UserMapper.INSTANCE.userToUserDTO(x));
     }
 
     @QueryHandler
     @Override
-    public UserLookupResponse getAllUsers(FindAllUsersQuery query) {
+    public Flux getAllUsers(FindAllUsersQuery query) {
         var users = userRepository.findAll();
-        return new UserLookupResponse(users);
+        return users.map(x-> UserMapper.INSTANCE.userToUserDTO(x));
     }
 }

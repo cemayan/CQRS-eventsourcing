@@ -20,6 +20,7 @@ public interface SongMapper {
     @Mapping(source = "song.spotifyLink", target = "spotifyLink")
     @Mapping(source = "song.youtubeLink", target = "youtubeLink")
     @Mapping(source = "song.albumId", target = "albumId")
+    @Mapping(source = "song.genreId", target = "genreId")
     Song songEventToSong(SongRegisteredEvent songRegisteredEvent);
 
 

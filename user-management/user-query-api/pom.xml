@@ -61,10 +61,35 @@
             <version>4.5.3</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--            <version>1.5.10</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <version>1.5.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.axonframework.extensions.reactor</groupId>
+            <artifactId>axon-reactor-spring-boot-starter</artifactId>
+            <version>4.5</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.ca</groupId>
             <artifactId>user-core</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.archaius</groupId>
+            <artifactId>archaius-core</artifactId>
+            <version>0.7.7</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

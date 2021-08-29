@@ -15,7 +15,6 @@ public class AlbumDTO {
     private Integer year;
 
     private ZonedDateTime releaseDate;
-    private Genre genre;
 
     private String artistId;
 
@@ -60,13 +59,7 @@ public class AlbumDTO {
         this.releaseDate = releaseDate;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
 
     public String getArtistId() {
         return artistId;

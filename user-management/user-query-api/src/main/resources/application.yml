@@ -35,6 +35,11 @@ security:
       jwt:
         key-value: cqrsSigningKey
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+
 ---
 
 spring:

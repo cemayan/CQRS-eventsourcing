@@ -38,7 +38,7 @@ security:
        client-id: cqrsClient
        client-secret: secret
        signing-key:  cqrsSigningKey
-       token-validity-seconds: 99999
+       token-validity-seconds: 99999999
        refresh-token-validity-seconds: 1500
 
 

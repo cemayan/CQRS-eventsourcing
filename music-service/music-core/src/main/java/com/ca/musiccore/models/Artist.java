@@ -15,10 +15,12 @@ public class Artist implements Persistable {
 
     @Id
     private String id;
+
+
     private String name;
 
     @Transient
-    private boolean newSong;
+    private boolean newArtist;
 
     @Version
     private Long version = 0L;
@@ -26,14 +28,13 @@ public class Artist implements Persistable {
 
     @Transient
     public boolean isNew() {
-        return this.newSong || id == null;
+        return this.newArtist || id == null;
     }
 
     public Artist setAsNew() {
-        this.newSong = true;
+        this.newArtist = true;
         return this;
     }
-
 
     @Override
     public String getId() {
@@ -53,11 +54,11 @@ public class Artist implements Persistable {
     }
 
     public boolean isNewSong() {
-        return newSong;
+        return newArtist;
     }
 
     public void setNewSong(boolean newSong) {
-        this.newSong = newSong;
+        this.newArtist = newSong;
     }
 
     public Long getVersion() {
