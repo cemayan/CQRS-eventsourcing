@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface SongRepository extends ReactiveNeo4jRepository<Song, Long> {
+public interface SongRepository extends ReactiveNeo4jRepository<Song, String> {
 
 }

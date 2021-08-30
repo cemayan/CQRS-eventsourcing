@@ -7,24 +7,27 @@ import org.springframework.data.neo4j.core.schema.Node;
 @Node
 public class Artist {
 
-    @Id @GeneratedValue
-    private Long id;
+    @Id
+    private String id;
 
     private final String name;
+
 
     public Artist(String name) {
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getName() {
         return name;
     }
+
+
 }

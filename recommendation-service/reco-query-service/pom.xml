@@ -7,6 +7,7 @@
         <groupId>com.ca</groupId>
         <artifactId>recommendation-service</artifactId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
 

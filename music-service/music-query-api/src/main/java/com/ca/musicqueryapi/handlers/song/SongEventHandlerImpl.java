@@ -59,47 +59,56 @@ public class SongEventHandlerImpl implements SongEventHandler {
     public void on(AllSongRegisteredEvent allSongRegisteredEvent) {
 
 
-        streamBridge.send("music-topic", allSongRegisteredEvent);
+        String albumUUID = UUID.randomUUID().toString();
+        String genreUUID = UUID.randomUUID().toString();
+        String artistUUID = UUID.randomUUID().toString();
 
 
-//        Song song_ = SongMapper.INSTANCE.songDTOToSong(allSongRegisteredEvent.getSong());
-//        song_.setNewSong(true);
-//
-//        Album album_ = AlbumMapper.INSTANCE.albumDTOToAlbum(allSongRegisteredEvent.getAlbum());
-//        if(allSongRegisteredEvent.getAlbum().getId() == null) {
-//            album_.setId(UUID.randomUUID().toString());
-//        }
-//
-//        album_.setNewAlbum(true);
-//
-//        Artist artist_ = ArtistMapper.INSTANCE.artistDTOToArtist(allSongRegisteredEvent.getArtist());
-//
-//        if(allSongRegisteredEvent.getArtist().getId() == null){
-//            artist_.setId(UUID.randomUUID().toString());
-//        }
-//
-//        artist_.setNewArtist(true);
-//
-//        Genre genre_ = GenreMapper.INSTANCE.genreDTOToGenre(allSongRegisteredEvent.getGenre());
-//
-//        if(allSongRegisteredEvent.getGenre().getId() == null) {
-//            genre_.setId(UUID.randomUUID().toString());
-//        }
-//
-//        genre_.setNewGenre(true);
-//
-//
-//
-//        albumRepository.save(album_).subscribe();
-//        artistRepository.save(artist_).subscribe();
-//        genreRepository.save(genre_).subscribe();
-//
-//
-//        song_.setAlbumId(album_.getId());
-//        song_.setArtistId(artist_.getId());
-//        song_.setGenreId(genre_.getId());
-//
-//        songRepository.save(song_).subscribe();
+        Song song_ = SongMapper.INSTANCE.songDTOToSong(allSongRegisteredEvent.getSong());
+        song_.setNewSong(true);
+
+        Album album_ = AlbumMapper.INSTANCE.albumDTOToAlbum(allSongRegisteredEvent.getAlbum());
+        if(allSongRegisteredEvent.getAlbum().getId() == null) {
+            album_.setId(albumUUID);
+        }
+
+        album_.setNewAlbum(true);
+
+        Artist artist_ = ArtistMapper.INSTANCE.artistDTOToArtist(allSongRegisteredEvent.getArtist());
+
+        if(allSongRegisteredEvent.getArtist().getId() == null){
+            artist_.setId(genreUUID);
+        }
+
+        artist_.setNewArtist(true);
+
+        Genre genre_ = GenreMapper.INSTANCE.genreDTOToGenre(allSongRegisteredEvent.getGenre());
+
+        if(allSongRegisteredEvent.getGenre().getId() == null) {
+            genre_.setId(artistUUID);
+        }
+
+        genre_.setNewGenre(true);
+
+
+
+        albumRepository.save(album_).subscribe();
+        artistRepository.save(artist_).subscribe();
+        genreRepository.save(genre_).subscribe();
+
+
+        song_.setAlbumId(album_.getId());
+        song_.setArtistId(artist_.getId());
+        song_.setGenreId(genre_.getId());
+
+        songRepository.save(song_).subscribe(x-> {
+
+            allSongRegisteredEvent.getGenre().setId(genreUUID);
+            allSongRegisteredEvent.getAlbum().setId(albumUUID);
+            allSongRegisteredEvent.getArtist().setId(artistUUID);
+
+            streamBridge.send("music-topic", allSongRegisteredEvent);
+        });
     }
 
 }
