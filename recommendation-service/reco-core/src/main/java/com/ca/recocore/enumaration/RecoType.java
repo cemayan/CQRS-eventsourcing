@@ -1,5 +1,5 @@
 package com.ca.recocore.enumaration;
 
 public enum RecoType {
-    GENRE
+    GENRE,ARTIST,ALBUM
 }

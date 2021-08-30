@@ -11,18 +11,13 @@ spring:
   profiles:
     active: "dev"
   cloud:
+    function:
+      definition: onReceive
     stream:
       bindings:
-        userProducer-out-0:
-          destination: users
-          group: userGroup
-      rabbit:
-        bindings:
-          consumer:
-            userOperationInputChannel:
-              autoBindDlq: true
-              republishToDlq: true
-      default-binder: rabbit
+        onReceive-in-0:
+          destination: music-topic-out
+          group: consumer
   neo4j:
     uri: bolt://localhost:7687
     authentication:

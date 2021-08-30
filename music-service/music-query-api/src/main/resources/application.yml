@@ -46,21 +46,19 @@ spring:
     password: guest
     virtual-host: /
   cloud:
+    function:
+      definition: sendNeo4j
     circuitbreaker:
       resilience4j:
         enabled: true
     stream:
-      bindings:
-        userProducer-out-0:
-          destination: users
-          group: userGroup
-      rabbit:
         bindings:
-          consumer:
-            userOperationInputChannel:
-                autoBindDlq: true
-                republishToDlq: true
-      default-binder: rabbit
+          sendNeo4j-in-0:
+            destination: music-topic
+            group: processor
+          sendNeo4j-out-0:
+            destination: music-topic-out
+
 
 
 

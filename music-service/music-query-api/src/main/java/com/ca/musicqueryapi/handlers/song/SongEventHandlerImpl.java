@@ -17,6 +17,7 @@ import com.ca.musicqueryapi.repositories.SongRepository;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,15 +30,17 @@ public class SongEventHandlerImpl implements SongEventHandler {
     private final AlbumRepository albumRepository;
     private final GenreRepository genreRepository;
     private final ArtistRepository artistRepository;
+    private final StreamBridge streamBridge;
 
 
     @Autowired
     public SongEventHandlerImpl(SongRepository songRepository, AlbumRepository albumRepository,
-                                GenreRepository genreRepository, ArtistRepository artistRepository) {
+                                GenreRepository genreRepository, ArtistRepository artistRepository, StreamBridge streamBridge) {
         this.songRepository = songRepository;
         this.albumRepository = albumRepository;
         this.genreRepository = genreRepository;
         this.artistRepository = artistRepository;
+        this.streamBridge = streamBridge;
     }
 
 
@@ -54,44 +57,49 @@ public class SongEventHandlerImpl implements SongEventHandler {
     @EventHandler
     @Override
     public void on(AllSongRegisteredEvent allSongRegisteredEvent) {
-        Song song_ = SongMapper.INSTANCE.songDTOToSong(allSongRegisteredEvent.getSong());
-        song_.setNewSong(true);
-
-        Album album_ = AlbumMapper.INSTANCE.albumDTOToAlbum(allSongRegisteredEvent.getAlbum());
-        if(allSongRegisteredEvent.getAlbum().getId() == null) {
-            album_.setId(UUID.randomUUID().toString());
-        }
-
-        album_.setNewAlbum(true);
-
-        Artist artist_ = ArtistMapper.INSTANCE.artistDTOToArtist(allSongRegisteredEvent.getArtist());
-
-        if(allSongRegisteredEvent.getArtist().getId() == null){
-            artist_.setId(UUID.randomUUID().toString());
-        }
-
-        artist_.setNewArtist(true);
-
-        Genre genre_ = GenreMapper.INSTANCE.genreDTOToGenre(allSongRegisteredEvent.getGenre());
-
-        if(allSongRegisteredEvent.getGenre().getId() == null) {
-            genre_.setId(UUID.randomUUID().toString());
-        }
-
-        genre_.setNewGenre(true);
 
 
-
-        albumRepository.save(album_).subscribe();
-        artistRepository.save(artist_).subscribe();
-        genreRepository.save(genre_).subscribe();
+        streamBridge.send("music-topic", allSongRegisteredEvent);
 
 
-        song_.setAlbumId(album_.getId());
-        song_.setArtistId(artist_.getId());
-        song_.setGenreId(genre_.getId());
-
-        songRepository.save(song_).subscribe();
+//        Song song_ = SongMapper.INSTANCE.songDTOToSong(allSongRegisteredEvent.getSong());
+//        song_.setNewSong(true);
+//
+//        Album album_ = AlbumMapper.INSTANCE.albumDTOToAlbum(allSongRegisteredEvent.getAlbum());
+//        if(allSongRegisteredEvent.getAlbum().getId() == null) {
+//            album_.setId(UUID.randomUUID().toString());
+//        }
+//
+//        album_.setNewAlbum(true);
+//
+//        Artist artist_ = ArtistMapper.INSTANCE.artistDTOToArtist(allSongRegisteredEvent.getArtist());
+//
+//        if(allSongRegisteredEvent.getArtist().getId() == null){
+//            artist_.setId(UUID.randomUUID().toString());
+//        }
+//
+//        artist_.setNewArtist(true);
+//
+//        Genre genre_ = GenreMapper.INSTANCE.genreDTOToGenre(allSongRegisteredEvent.getGenre());
+//
+//        if(allSongRegisteredEvent.getGenre().getId() == null) {
+//            genre_.setId(UUID.randomUUID().toString());
+//        }
+//
+//        genre_.setNewGenre(true);
+//
+//
+//
+//        albumRepository.save(album_).subscribe();
+//        artistRepository.save(artist_).subscribe();
+//        genreRepository.save(genre_).subscribe();
+//
+//
+//        song_.setAlbumId(album_.getId());
+//        song_.setArtistId(artist_.getId());
+//        song_.setGenreId(genre_.getId());
+//
+//        songRepository.save(song_).subscribe();
     }
 
 }
