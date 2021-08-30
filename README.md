@@ -1,8 +1,7 @@
 ### CQRS-EventSourcing Demo
 
 - Spring Cloud Api Gateway
-- Spring Cloud Netflix Eureka Server
-- Spring Cloud Netflix Ribbon
+- Spring Cloud Load Balancer
 - Spring Cloud Functions
 - Spring Cloud Stream RabbitMQ
 - Axon Framework

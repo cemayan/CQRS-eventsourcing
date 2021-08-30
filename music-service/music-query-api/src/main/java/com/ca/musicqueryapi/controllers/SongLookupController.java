@@ -66,6 +66,10 @@ public class SongLookupController {
         var response = queryGateway.query(query, ResponseTypes.instanceOf(Mono.class)).join();
         Mono<SongDTO> songMono = (Mono<SongDTO>) response;
 
+        songQueryHandler.getUser("f8e21d61-5662-46b9-b4e8-23ff3d950f3d",token).subscribe(x-> {
+            System.out.println(x);
+        });
+
         return  songMono
                 .map(resp-> ResponseEntity.status(200).body(new SongLookupResponse(resp)))
                 .switchIfEmpty(Mono.defer(()-> Mono.error(() -> {

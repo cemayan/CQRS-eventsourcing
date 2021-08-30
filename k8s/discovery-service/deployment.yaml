@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-service-deployment
+  template:
+    metadata:
+      labels:
+        app: discovery-service-deployment
+    spec:
+      containers:
+        - name: discovery-service-app
+          image: cemayan/cqrs-discovery-service
+          ports:
+            - containerPort: 8761
+          imagePullPolicy: Always

@@ -3,7 +3,6 @@ package com.ca.musicqueryapi.handlers.song;
 
 
 import com.ca.musiccore.mapper.SongMapper;
-import com.ca.musicqueryapi.config.RibbonConfig;
 import com.ca.musicqueryapi.queries.FindAllSongsQuery;
 import com.ca.musicqueryapi.queries.FindSongByIdQuery;
 import com.ca.musicqueryapi.repositories.SongRepository;
@@ -11,16 +10,12 @@ import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-@RibbonClient(
-        name = "user-query-service",
-        configuration = RibbonConfig.class)
 public class SongQueryHandlerImpl implements SongQueryHandler {
 
 

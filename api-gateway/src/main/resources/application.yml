@@ -7,6 +7,9 @@ spring:
   profiles:
     active: "dev"
   cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
     gateway:
       routes:
         - id: 'user-command-service'
@@ -33,12 +36,6 @@ spring:
             - Path=/music-query-service/**
           filters:
             - RewritePath=/music-query-service/(?<path>.*), /$\{path}
-
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-    registry-fetch-interval-seconds: 10
 
 
 logging:
@@ -72,6 +69,13 @@ management:
           job: ${spring.application.name}
           push-rate: 20m
           shutdown-operation: push
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "docker"
 
 
 

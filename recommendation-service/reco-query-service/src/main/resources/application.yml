@@ -11,6 +11,9 @@ spring:
   profiles:
     active: "dev"
   cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
     function:
       definition: onReceive
     stream:
@@ -24,12 +27,6 @@ spring:
       username: neo4j
       password: password
 
-
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-    registry-fetch-interval-seconds: 10
 
 
 management:

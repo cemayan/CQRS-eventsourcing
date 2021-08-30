@@ -46,6 +46,9 @@ spring:
     password: guest
     virtual-host: /
   cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
     function:
       definition: sendNeo4j
     circuitbreaker:
@@ -60,14 +63,6 @@ spring:
             destination: music-topic-out
 
 
-
-
-
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-    registry-fetch-interval-seconds: 10
 
 management:
   endpoint:
@@ -85,14 +80,6 @@ security:
     resource:
       jwt:
         key-value: cqrsSigningKey
-
-user-query-service:
-  ribbon:
-    eureka:
-      enabled: false
-    listOfServers: localhost:8082
-    ServerListRefreshInterval: 15000
-
 
 
 ---

@@ -15,13 +15,11 @@ spring:
     url: r2dbc:mysql://localhost:3306/music
     username: root
     password: password
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
 
-
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-    registry-fetch-interval-seconds: 10
 
 management:
   endpoint:
