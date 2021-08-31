@@ -1,7 +1,10 @@
 package com.ca.usercore.configuration;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
@@ -20,33 +23,42 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
 public class AxonConfig {
-    @Value("${spring.data.mongodb.host:127.0.0.1}")
-    private String mongoHost;
 
-    @Value("${spring.data.mongodb.port:27017}")
-    private int mongoPort;
-
-    @Value("${spring.data.mongodb.database:user}")
-    private String mongoDatabase;
+    @Value("${spring.data.mongodb.uri}")
+    private String mongoUri;
 
     @Bean
     public MongoClient mongo() {
-        var mongoFactory = new MongoFactory();
-        var mongoSettingsFactory = new MongoSettingsFactory();
-        mongoSettingsFactory.setMongoAddresses(Collections.singletonList(new ServerAddress(mongoHost, mongoPort)));
-        mongoFactory.setMongoClientSettings(mongoSettingsFactory.createMongoClientSettings());
 
-        return mongoFactory.createMongo();
+//        var mongoFactory = new MongoFactory();
+//        var mongoSettingsFactory = new MongoSettingsFactory();
+//        mongoSettingsFactory
+//                .setMongoAddresses(
+//                        Arrays.asList(
+//                                new ServerAddress("mongosts-0.mongodb-service", 27017),
+//                                new ServerAddress("mongosts-1.mongodb-service", 27017)
+//                        ));
+//        mongoFactory.setMongoClientSettings(mongoSettingsFactory.createMongoClientSettings());
+//        return mongoFactory.createMongo();
+
+        ConnectionString connectionString =
+                new ConnectionString(mongoUri);
+        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+
+        return MongoClients.create(mongoClientSettings);
     }
 
     @Bean
     public MongoTemplate axonMongoTemplate() {
         return DefaultMongoTemplate.builder()
-                .mongoDatabase(mongo(), mongoDatabase)
+                .mongoDatabase(mongo(), "user")
                 .build();
     }
 

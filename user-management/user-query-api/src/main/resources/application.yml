@@ -4,13 +4,6 @@ server:
 spring:
   application:
     name: "user-query-service"
-  profiles:
-    active: "dev"
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: user
   cloud:
    kubernetes:
      discovery:
@@ -37,6 +30,19 @@ springdoc:
   swagger-ui:
     path: /swagger-ui
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "kubernetes"
+  data:
+    mongodb:
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=res0
+
+axon:
+  axonserver:
+    servers: axonserver-0.axonserver
 
 ---
 
@@ -44,6 +50,9 @@ spring:
   config:
     activate:
       on-profile: "dev"
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user
 
 ---
 

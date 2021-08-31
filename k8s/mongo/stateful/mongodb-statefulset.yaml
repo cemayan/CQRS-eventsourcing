@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongosts
+spec:
+  serviceName: mongodb-service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongodb-service
+  template:
+    metadata:
+      labels:
+        app: mongodb-service
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mongod-container
+          image: mongo
+          command:
+            - "mongod"
+            - "--bind_ip"
+            - "0.0.0.0"
+            - "--replSet"
+            - "rs0"
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongovc-template
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongovc-template
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

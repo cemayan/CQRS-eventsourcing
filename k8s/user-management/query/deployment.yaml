@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-query-deployment
+  template:
+    metadata:
+      labels:
+        app: user-query-deployment
+    spec:
+      containers:
+        - name: user-query-deployment-app
+          image: user-query-api
+          ports:
+            - containerPort: 8082
+          imagePullPolicy: Never
