@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway-deployment
+  name: user-command-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway-deployment
+      app: user-command-deployment
   template:
     metadata:
       labels:
-        app: api-gateway-deployment
+        app: user-command-deployment
     spec:
       containers:
-        - name: api-gateway-app
-          image: api-gateway
+        - name: user-command-deployment-app
+          image: user-command-api
           ports:
-            - containerPort: 8065
+            - containerPort: 8081
           imagePullPolicy: Never

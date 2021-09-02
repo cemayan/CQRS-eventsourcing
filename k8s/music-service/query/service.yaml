@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-query-api-service
+spec:
+  selector:
+    app: music-query-deployment
+  ports:
+    - port: 8092
+      targetPort: 8092
+  type: LoadBalancer

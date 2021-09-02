@@ -4,17 +4,12 @@ server:
 spring:
   application:
     name: "user-command-service"
-  profiles:
-    active: "dev"
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: user
   cloud:
     kubernetes:
       discovery:
         all-namespaces: true
+
+
 management:
   endpoint:
     health:
@@ -37,7 +32,24 @@ security:
 spring:
   config:
     activate:
+      on-profile: "kubernetes"
+  data:
+    mongodb:
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0
+
+axon:
+  axonserver:
+    servers: axonserver-0.axonserver
+
+---
+
+spring:
+  config:
+    activate:
       on-profile: "dev"
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user
 
 ---
 

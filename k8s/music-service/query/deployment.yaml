@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oauth2-server-deployment
+  name: music-query-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: oauth2-server-deployment
+      app: music-query-deployment
   template:
     metadata:
       labels:
-        app: oauth2-server-deployment
+        app: music-query-deployment
     spec:
       containers:
-        - name: oauth2-server-app
-          image: oauth2-server
+        - name: music-query-deployment-app
+          image: music-query-api
           ports:
-            - containerPort: 8084
+            - containerPort: 8092
           imagePullPolicy: Never

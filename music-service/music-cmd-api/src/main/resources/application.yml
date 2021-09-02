@@ -4,17 +4,6 @@ server:
 spring:
   application:
     name: "music-command-service"
-  profiles:
-    active: "dev"
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: music
-  r2dbc:
-    url: r2dbc:mysql://localhost:3306/music
-    username: root
-    password: password
   cloud:
     kubernetes:
       discovery:
@@ -43,8 +32,34 @@ security:
 spring:
   config:
     activate:
-      on-profile: "dev"
+      on-profile: "kubernetes"
+  data:
+    mongodb:
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
 
+
+
+axon:
+  axonserver:
+    servers: axonserver-0.axonserver
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
 ---
 
 spring:

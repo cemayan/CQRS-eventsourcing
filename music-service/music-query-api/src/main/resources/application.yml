@@ -7,44 +7,11 @@ server:
 spring:
   application:
     name: "music-query-service"
-  profiles:
-    active: "dev"
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: music
-  security:
-    oauth2:
-      client:
-        registration:
-          test:
-            authorization-grant-type: password
-            client-id: cqrsClient
-            client-secret: secret
-        provider:
-          test:
-            token-uri: http://oauth2-server:8084/oauth/token
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
       ddl-auto: update
-  r2dbc:
-    url: r2dbc:mysql://localhost:3306/music
-    username: root
-    password: password
-  flyway:
-    url: jdbc:mysql://localhost:3306/music
-    user: ${spring.r2dbc.username}
-    password: ${spring.r2dbc.password}
-    baseline-on-migrate: true
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
   cloud:
     kubernetes:
       discovery:
@@ -61,8 +28,6 @@ spring:
             group: processor
           sendNeo4j-out-0:
             destination: music-topic-out
-
-
 
 management:
   endpoint:
@@ -81,6 +46,27 @@ security:
       jwt:
         key-value: cqrsSigningKey
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "kubernetes"
+  data:
+    mongodb:
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+
 
 ---
 
@@ -88,7 +74,19 @@ spring:
   config:
     activate:
       on-profile: "dev"
-
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/music
+    username: root
+    password: password
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 ---
 
 spring:

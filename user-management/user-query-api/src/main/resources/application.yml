@@ -38,7 +38,7 @@ spring:
       on-profile: "kubernetes"
   data:
     mongodb:
-      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=res0
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0
 
 axon:
   axonserver:

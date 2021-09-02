@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-command-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: music-command-deployment
+  template:
+    metadata:
+      labels:
+        app: music-command-deployment
+    spec:
+      containers:
+        - name: music-command-deployment-app
+          image: music-command-api
+          ports:
+            - containerPort: 8091
+          imagePullPolicy: Never
