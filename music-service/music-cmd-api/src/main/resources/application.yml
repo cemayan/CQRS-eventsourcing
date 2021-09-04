@@ -35,9 +35,9 @@ spring:
       on-profile: "kubernetes"
   data:
     mongodb:
-      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0
+      uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/music?replicaSet=rs0
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/music
+    url: r2dbc:mysql://mysql-0.mysql:3306/music
     username: root
     password: password
 
@@ -55,11 +55,12 @@ spring:
       on-profile: "dev"
   data:
     mongodb:
-      uri: mongodb://localhost:27017/user
+      uri: mongodb://localhost:27017/music
   r2dbc:
     url: r2dbc:mysql://localhost:3306/music
     username: root
     password: password
+
 ---
 
 spring:

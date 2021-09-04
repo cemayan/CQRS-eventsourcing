@@ -8,8 +8,6 @@ server:
 spring:
   application:
     name: "reco-query-service"
-  profiles:
-    active: "dev"
   cloud:
     kubernetes:
       discovery:
@@ -21,11 +19,7 @@ spring:
         onReceive-in-0:
           destination: music-topic-out
           group: consumer
-  neo4j:
-    uri: bolt://localhost:7687
-    authentication:
-      username: neo4j
-      password: password
+
 
 
 
@@ -46,6 +40,27 @@ security:
       jwt:
         key-value: cqrsSigningKey
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "kubernetes"
+  neo4j:
+    uri: neo4j://neo4j-release-0.neo4j-release:7687
+    authentication:
+      username: neo4j
+      password: password
+  rabbitmq:
+    host: rabbitmq-cluster
+    port: 5672
+    username: KX68gCZyPKjI-_XmhySFvn2Mj6ZuD4GH
+    password: kd7-EbebbC2RxmE1OFaVF2s4mRRApHLm
+    virtual-host: /
+
+axon:
+  axonserver:
+    servers: axonserver-0.axonserver
 
 
 ---
@@ -54,7 +69,17 @@ spring:
   config:
     activate:
       on-profile: "dev"
-
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: password
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 ---
 
 spring:

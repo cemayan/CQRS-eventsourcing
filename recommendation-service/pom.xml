@@ -26,6 +26,7 @@
 
     <modules>
         <module>reco-query-service</module>
+        <module>reco-core</module>
     </modules>
 
     <dependencies>

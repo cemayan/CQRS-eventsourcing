@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reco-query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reco-query-deployment
+  template:
+    metadata:
+      labels:
+        app: reco-query-deployment
+    spec:
+      containers:
+        - name: reco-query-deployment-app
+          image: reco-query-api
+          ports:
+            - containerPort: 8051
+          imagePullPolicy: Never
