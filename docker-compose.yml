@@ -1,28 +1,68 @@
 version: '2'
 services:
-#  discovery-service:
-#    container_name: discovery-service
-#    hostname: discovery-service
-#    build:
-#      context: ./discovery-service/
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8761:8761"
-#    networks:
-#      - cqrs-es
-  api-gateway:
-    container_name: api-gateway
-    hostname: api-gateway
+  music-command-service:
+    container_name: music-command-service
+    hostname: music-command-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     build:
-      context: ./api-gateway/
+      context: ./music-service/music-cmd-api
       dockerfile: Dockerfile
     ports:
-      - "8065:8065"
+      - "8091:8091"
     command: --spring.profiles.active=docker
-    depends_on:
-      - discovery-service
+    networks:
+      - cqrs-es
+  music-query-service:
+    container_name: music-query-service
+    hostname: music-query-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    build:
+      context: ./music-service/music-query-api
+      dockerfile: Dockerfile
+    ports:
+      - "8092:8092"
+    command: --spring.profiles.active=docker
+    networks:
+      - cqrs-es
+  user-query-service:
+    container_name: user-query-service
+    hostname: user-query-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    build:
+      context: ./user-management/user-query-api
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    command: --spring.profiles.active=docker
+    networks:
+      - cqrs-es
+  user-command-service:
+    container_name: user-command-service
+    hostname: user-command-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    build:
+      context: ./user-management/user-cmd-api
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    command: --spring.profiles.active=docker
+    networks:
+      - cqrs-es
+  reco-query-service:
+    container_name: reco-query-service
+    hostname: reco-query-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    build:
+      context: ./recommendation-service/reco-query-service
+      dockerfile: Dockerfile
+    ports:
+      - "8051:8051"
+    command: --spring.profiles.active=docker
     networks:
       - cqrs-es
 networks:
