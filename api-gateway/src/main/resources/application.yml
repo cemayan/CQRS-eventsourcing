@@ -4,8 +4,6 @@ server:
 spring:
   application:
     name: "api-gateway"
-  profiles:
-    active: "dev"
   cloud:
     kubernetes:
       discovery:
@@ -13,29 +11,35 @@ spring:
     gateway:
       routes:
         - id: 'user-command-service'
-          uri: lb://user-command-service
+          uri: lb://user-command-api-service
           predicates:
-              - Path=/user-command-service/**
+              - Path=/user-command-api-service/**
           filters:
-            - RewritePath=/user-command-service/(?<path>.*), /$\{path}
-        - id: 'user-query-service'
-          uri: lb://user-query-service
+            - RewritePath=/user-command-api-service/(?<path>.*), /$\{path}
+        - id: 'user-query-api-service'
+          uri: lb://user-query-api-service
           predicates:
-            - Path=/user-query-service/**
+            - Path=/user-query-api-service/**
           filters:
-            - RewritePath=/user-query-service/(?<path>.*), /$\{path}
-        - id: 'music-command-service'
-          uri: lb://music-command-service
+            - RewritePath=/user-query-api-service/(?<path>.*), /$\{path}
+        - id: 'music-command-api-service'
+          uri: lb://music-command-api-service
           predicates:
-            - Path=/music-command-service/**
+            - Path=/music-command-api-service/**
           filters:
-            - RewritePath=/music-command-service/(?<path>.*), /$\{path}
-        - id: 'user-query-service'
-          uri: lb://music-query-service
+            - RewritePath=/music-command-api-service/(?<path>.*), /$\{path}
+        - id: 'user-query-api-service'
+          uri: lb://music-query-api-service
           predicates:
-            - Path=/music-query-service/**
+            - Path=/music-query-api-service/**
           filters:
-            - RewritePath=/music-query-service/(?<path>.*), /$\{path}
+            - RewritePath=/music-query-api-service/(?<path>.*), /$\{path}
+        - id: 'reco-query-api-service'
+          uri: lb://reco-query-api-service
+          predicates:
+            - Path=/reco-query-api-service/**
+          filters:
+            - RewritePath=/reco-query-service/(?<path>.*), /$\{path}
 
 
 logging:
@@ -69,7 +73,11 @@ management:
           job: ${spring.application.name}
           push-rate: 20m
           shutdown-operation: push
-
+---
+spring:
+  config:
+    activate:
+      on-profile: "kubernetes"
 
 ---
 spring:

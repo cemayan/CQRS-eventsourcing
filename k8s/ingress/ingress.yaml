@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: simpleingressroute
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "PathPrefix(`/api/v1/songLookup`)"
+      kind: Rule
+      services:
+        - name: music-query-api-service
+          port: 8092
