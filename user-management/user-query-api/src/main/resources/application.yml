@@ -4,10 +4,6 @@ server:
 spring:
   application:
     name: "user-query-service"
-  cloud:
-   kubernetes:
-     discovery:
-       all-namespaces: true
 
 management:
   endpoint:
@@ -36,6 +32,10 @@ spring:
   config:
     activate:
       on-profile: "kubernetes"
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
   data:
     mongodb:
       uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/user?replicaSet=rs0

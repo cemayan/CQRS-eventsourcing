@@ -13,9 +13,6 @@ spring:
     hibernate:
       ddl-auto: update
   cloud:
-    kubernetes:
-      discovery:
-        all-namespaces: true
     function:
       definition: sendNeo4j
     circuitbreaker:
@@ -52,6 +49,10 @@ spring:
   config:
     activate:
       on-profile: "kubernetes"
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
   data:
     mongodb:
       uri: mongodb://mongosts-0.mongodb-service:27017,mongosts-1.mongodb-service:27017,mongosts-2.mongodb-service:27017/music?replicaSet=rs0
@@ -73,13 +74,14 @@ axon:
 
 ---
 
+
 spring:
   config:
     activate:
       on-profile: "dev"
   data:
     mongodb:
-      uri: mongodb://localhost:27017/user
+      uri: mongodb://localhost:27017/music
   r2dbc:
     url: r2dbc:mysql://localhost:3306/music
     username: root
@@ -90,6 +92,13 @@ spring:
     username: guest
     password: guest
     virtual-host: /
+
+axon:
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+
 ---
 
 spring:
